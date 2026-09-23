@@ -1,0 +1,8 @@
+{
+  "name": "marketpulse-india-paper-trading",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Indian market paper trading dashboard with optional Upstox live market data.",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

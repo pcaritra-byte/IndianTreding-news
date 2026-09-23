@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarketPulse India — Paper Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">MP</div>
+        <div>
+          <div class="brand-name">MarketPulse</div>
+          <div class="brand-sub">INDIA • PAPER TRADING</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-tab="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-tab="portfolio"><span>◒</span> Portfolio</button>
+        <button class="nav-item" data-tab="orders"><span>↔</span> Orders</button>
+        <button class="nav-item" data-tab="news"><span>◉</span> News & Sentiment</button>
+      </nav>
+
+      <div class="sidebar-card">
+        <div class="eyebrow">PAPER MODE</div>
+        <div class="paper-balance" id="sideBalance">₹10,00,000</div>
+        <div class="muted">Virtual balance</div>
+        <button class="secondary full" id="resetBtn">Reset account</button>
+      </div>
+
+      <div class="sidebar-footer">
+        <span class="status-dot"></span>
+        Simulated market feed
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-title">MarketPulse</div>
+        <div class="market-status" id="marketStatus"><span class="pulse"></span> Demo market feed</div>
+        <div class="top-actions">
+          <button class="secondary api-btn" id="apiSettingsBtn">Live API</button>
+          <button class="icon-btn" title="Notifications">♢</button>
+          <div class="avatar">A</div>
+        </div>
+      </header>
+
+      <section id="dashboard" class="tab-panel active">
+        <div class="page-head">
+          <div>
+            <div class="eyebrow">INDIAN MARKETS</div>
+            <h1>Trading Dashboard</h1>
+            <p>Practice trades with a virtual account using a simulated live feed.</p>
+          </div>
+          <div class="head-metrics">
+            <div class="metric-card">
+              <span>Total equity</span>
+              <strong id="totalEquity">₹10,00,000</strong>
+              <small id="dailyPnl" class="positive">+₹0.00 (0.00%)</small>
+            </div>
+            <div class="metric-card">
+              <span>Buying power</span>
+              <strong id="buyingPower">₹10,00,000</strong>
+              <small>Available</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="index-grid">
+          <button class="index-card selected" data-symbol="NIFTY 50">
+            <div><span class="badge">INDEX</span><span class="live-chip">LIVE*</span></div>
+            <strong>NIFTY 50</strong>
+            <div class="index-value" id="niftyPrice">25,240.00</div>
+            <div id="niftyChange" class="positive">+0.42%</div>
+          </button>
+          <button class="index-card" data-symbol="BANK NIFTY">
+            <div><span class="badge">INDEX</span><span class="live-chip">LIVE*</span></div>
+            <strong>BANK NIFTY</strong>
+            <div class="index-value" id="bankPrice">57,860.00</div>
+            <div id="bankChange" class="negative">-0.18%</div>
+          </button>
+          <button class="index-card" data-symbol="RELIANCE">
+            <div><span class="badge">NSE</span><span class="live-chip">LIVE*</span></div>
+            <strong>RELIANCE</strong>
+            <div class="index-value" id="reliancePrice">1,524.75</div>
+            <div id="relianceChange" class="positive">+0.64%</div>
+          </button>
+          <button class="index-card" data-symbol="TCS">
+            <div><span class="badge">NSE</span><span class="live-chip">LIVE*</span></div>
+            <strong>TCS</strong>
+            <div class="index-value" id="tcsPrice">4,118.30</div>
+            <div id="tcsChange" class="positive">+0.21%</div>
+          </button>
+        </div>
+
+        <div class="workspace">
+          <section class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">PRICE ACTION</span>
+                <h2 id="chartTitle">NIFTY 50</h2>
+              </div>
+              <div class="chart-tools">
+                <div class="timeframes">
+                  <button data-tf="5m" class="active">5m</button>
+                  <button data-tf="15m">15m</button>
+                  <button data-tf="1h">1h</button>
+                  <button data-tf="1D">1D</button>
+                </div>
+                <button class="secondary" id="indicatorsBtn">Indicators</button>
+              </div>
+            </div>
+
+            <div class="chart-wrap">
+              <canvas id="chartCanvas"></canvas>
+              <div class="chart-tooltip" id="chartTooltip"></div>
+              <div class="ai-overlay">
+                <span class="ai-star">✦</span>
+                <span>AI Pattern</span>
+                <strong id="patternName">Bullish Engulfing</strong>
+                <small id="patternNote">Momentum continuation setup</small>
+              </div>
+            </div>
+
+            <div class="indicator-row">
+              <div class="indicator-pill"><span>RSI</span><strong id="rsiValue">61.4</strong></div>
+              <div class="indicator-pill"><span>MACD</span><strong id="macdValue">+18.6</strong></div>
+              <div class="indicator-pill"><span>Volume</span><strong id="volumeValue">78%</strong></div>
+              <div class="indicator-pill"><span>Trend</span><strong id="trendValue" class="positive">Bullish</strong></div>
+            </div>
+          </section>
+
+          <section class="panel order-panel">
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">PAPER ORDER</span>
+                <h2>Place Trade</h2>
+              </div>
+              <span class="paper-badge">₹ Virtual</span>
+            </div>
+
+            <div class="order-tabs">
+              <button class="active" data-order="buy">BUY</button>
+              <button data-order="sell">SELL</button>
+            </div>
+
+            <label>Instrument</label>
+            <select id="orderSymbol">
+              <option>NIFTY 50</option>
+              <option>BANK NIFTY</option>
+              <option>RELIANCE</option>
+              <option>TCS</option>
+            </select>
+
+            <label>Order type</label>
+            <div class="segmented">
+              <button class="active">Market</button>
+              <button>Limit</button>
+            </div>
+
+            <div class="two-col">
+              <div>
+                <label>Quantity</label>
+                <input id="qtyInput" type="number" min="1" value="1">
+              </div>
+              <div>
+                <label>Price</label>
+                <input id="priceInput" type="number" step="0.01" value="25240">
+              </div>
+            </div>
+
+            <div class="trade-preview">
+              <span>Estimated value</span>
+              <strong id="tradeValue">₹25,240.00</strong>
+            </div>
+
+            <button class="primary trade-btn" id="placeOrderBtn">Place Paper Buy</button>
+            <p class="micro">* Prices are simulated for demonstration. No real orders are sent.</p>
+            <div id="toast" class="toast"></div>
+            <div class="api-note" id="apiNote">Live data connects through the backend when an Upstox access token is configured.</div>
+          </section>
+        </div>
+
+        <div class="lower-grid">
+          <section class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">WATCHLIST</span><h2>Top Movers</h2></div>
+              <span class="muted">NSE</span>
+            </div>
+            <div class="movers" id="moversList"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div><span class="eyebrow">RECENT ACTIVITY</span><h2>Your Trades</h2></div>
+              <button class="link-btn" data-tab-jump="orders">View all</button>
+            </div>
+            <div id="recentTrades" class="activity-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="portfolio" class="tab-panel">
+        <div class="page-head">
+          <div><div class="eyebrow">ACCOUNT</div><h1>Portfolio</h1><p>Track virtual holdings and simulated P&L.</p></div>
+        </div>
+        <div class="portfolio-kpis">
+          <div class="big-stat"><span>Equity</span><strong id="portfolioEquity">₹10,00,000</strong></div>
+          <div class="big-stat"><span>Invested</span><strong id="investedValue">₹0</strong></div>
+          <div class="big-stat"><span>Unrealized P&L</span><strong id="unrealizedPnl" class="positive">₹0.00</strong></div>
+          <div class="big-stat"><span>Trades</span><strong id="tradeCount">0</strong></div>
+        </div>
+        <section class="panel">
+          <div class="panel-head"><div><span class="eyebrow">POSITIONS</span><h2>Open Positions</h2></div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Instrument</th><th>Qty</th><th>Avg. Price</th><th>LTP</th><th>Market Value</th><th>P&L</th></tr></thead>
+              <tbody id="positionsBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="orders" class="tab-panel">
+        <div class="page-head">
+          <div><div class="eyebrow">EXECUTION LOG</div><h1>Orders</h1><p>Every paper order is stored locally in this browser.</p></div>
+        </div>
+        <section class="panel">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Time</th><th>Side</th><th>Instrument</th><th>Qty</th><th>Price</th><th>Value</th><th>Status</th></tr></thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="news" class="tab-panel">
+        <div class="page-head">
+          <div><div class="eyebrow">MARKET INTELLIGENCE</div><h1>News & Sentiment</h1><p>Demo headlines tagged with simulated sentiment.</p></div>
+          <div class="sentiment-summary"><span>Bullish</span><strong id="bullishPct">58%</strong><span>Neutral 27% • Bearish 15%</span></div>
+        </div>
+        <div class="news-grid" id="newsGrid"></div>
+      </section>
+    </main>
+  </div>
+
+
+  <div class="modal-backdrop" id="apiModal">
+    <div class="modal">
+      <div class="panel-head">
+        <div><span class="eyebrow">DATA CONNECTION</span><h2>Upstox Live Market API</h2></div>
+        <button class="icon-btn" id="closeApiModal">×</button>
+      </div>
+      <p class="modal-copy">The current Upstox market-data API uses an OAuth access token for quote requests. Put the token in the server <code>.env</code> file, not in this browser page.</p>
+      <div class="config-row"><span>Backend endpoint</span><strong>/api/quotes</strong></div>
+      <div class="config-row"><span>Provider</span><strong>Upstox</strong></div>
+      <div class="config-row"><span>Mode</span><strong id="apiModalMode">Checking…</strong></div>
+      <div class="modal-actions">
+        <a class="primary link-as-btn" href="/auth/login">Login with Upstox</a>
+        <button class="secondary" id="refreshApiBtn">Check connection</button>
+      </div>
+      <p class="micro">Do not paste your client secret into <code>index.html</code> or commit it to GitHub. The backend uses it only for the OAuth exchange.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
